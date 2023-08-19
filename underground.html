@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        
+        h1 {
+            text-align: center;
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 50%;
+            margin: auto;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+    <title>Football League Standings</title>
+</head>
+<body>
+    <h1>Football League Standings</h1>
+    <table>
+        <tr>
+            <th>Rank</th>
+            <th>Team</th>
+            <th>Points</th>
+        </tr>
+        <script>
+            class Team {
+                constructor(name) {
+                    this.name = name;
+                    this.points = 0;
+                }
+            }
+
+            const teams = [
+                new Team("Team A"),
+                new Team("Team B"),
+                // Add more teams here
+            ];
+
+            // Simulate match results and update points
+            function simulateMatchResults() {
+                // Example match results:
+                const matchResults = [
+                    { homeTeam: "Team A", awayTeam: "Team B", homeGoals: 2, awayGoals: 1 },
+                    { homeTeam: "Team B", awayTeam: "Team A", homeGoals: 0, awayGoals: 3 },
+                    // Add more match results here
+                ];
+
+                matchResults.forEach(result => {
+                    const homeTeam = teams.find(team => team.name === result.homeTeam);
+                    const awayTeam = teams.find(team => team.name === result.awayTeam);
+                    const homeGoals = result.homeGoals;
+                    const awayGoals = result.awayGoals;
+
+                    if (homeGoals > awayGoals) {
+                        homeTeam.points += 3;
+                    } else if (homeGoals < awayGoals) {
+                        awayTeam.points += 3;
+                    } else {
+                        homeTeam.points += 1;
+                        awayTeam.points += 1;
+                    }
+                });
+            }
+
+            simulateMatchResults();
+
+            const sortedTeams = teams.sort((a, b) => b.points - a.points);
+
+            const table = document.querySelector("table");
+
+            sortedTeams.forEach((team, index) => {
+                const row = table.insertRow();
+                const rankCell = row.insertCell(0);
+                const teamCell = row.insertCell(1);
+                const pointsCell = row.insertCell(2);
+
+                rankCell.textContent = index + 1;
+                teamCell.textContent = team.name;
+                pointsCell.textContent = team.points;
+            });
+        </script>
+    </table>
+</body>
+</html>
