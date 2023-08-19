@@ -36,6 +36,7 @@
         <tr>
             <th>Rank</th>
             <th>Team</th>
+            <th>GP</th>
             <th>Points</th>
         </tr>
         <script>
@@ -43,13 +44,15 @@
                 constructor(name) {
                     this.name = name;
                     this.points = 0;
+                    this.gamesPlayed = 0;
                 }
             }
 
             const teams = [
-                new Team("Mwambani fc"),
-                new Team("Birikani fc"),
-                new Team("Amani fc")
+                new Team("Birkani"),
+                new Team("Amani FC"),
+                new Team("Meti Allstars"),
+                new Team("Malomani Boys FC"),
                 // Add more teams here
             ];
 
@@ -57,8 +60,10 @@
             function simulateMatchResults() {
                 // Example match results:
                 const matchResults = [
-                    { homeTeam: "Mwambani fc", awayTeam: "Birikani", homeGoals: 2, awayGoals: 1 },
-                    { homeTeam: "Birikani fc", awayTeam: "Amani fc", homeGoals: 3, awayGoals: 1 },
+                    { homeTeam: "Birkani", awayTeam: "Amani FC", homeGoals: getRandomScore(), awayGoals: getRandomScore() },
+                    { homeTeam: "Amani FC", awayTeam: "Birkani", homeGoals: getRandomScore(), awayGoals: getRandomScore() },
+                    { homeTeam: "Meti Allstars", awayTeam: "Malomani Boys FC", homeGoals: getRandomScore(), awayGoals: getRandomScore() },
+                    { homeTeam: "Malomani Boys FC", awayTeam: "Meti Allstars", homeGoals: getRandomScore(), awayGoals: getRandomScore() },
                     // Add more match results here
                 ];
 
@@ -76,7 +81,15 @@
                         homeTeam.points += 1;
                         awayTeam.points += 1;
                     }
+
+                    homeTeam.gamesPlayed++;
+                    awayTeam.gamesPlayed++;
                 });
+            }
+
+            // Generate random score between 0 and 5
+            function getRandomScore() {
+                return Math.floor(Math.random() * 6);
             }
 
             simulateMatchResults();
@@ -89,10 +102,12 @@
                 const row = table.insertRow();
                 const rankCell = row.insertCell(0);
                 const teamCell = row.insertCell(1);
-                const pointsCell = row.insertCell(2);
+                const gamesPlayedCell = row.insertCell(2);
+                const pointsCell = row.insertCell(3);
 
                 rankCell.textContent = index + 1;
                 teamCell.textContent = team.name;
+                gamesPlayedCell.textContent = team.gamesPlayed;
                 pointsCell.textContent = team.points;
             });
         </script>
