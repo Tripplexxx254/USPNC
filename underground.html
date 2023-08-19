@@ -12,12 +12,12 @@
         
         h1 {
             text-align: center;
-            colour: darkgreen;
+            color: darkgreen;
         }
         
         table {
             border-collapse: collapse;
-            width: 50%;
+            width: 60%;
             margin: auto;
         }
         
@@ -34,12 +34,13 @@
     <title>Football League Standings</title>
 </head>
 <body>
-    <h1>Taru Football League Standings</h1>
+    <h1>Football League Standings</h1>
     <table>
         <tr>
             <th>Rank</th>
             <th>Team</th>
             <th>GP</th>
+            <th>G</th>
             <th>Points</th>
         </tr>
         <script>
@@ -48,6 +49,8 @@
                     this.name = name;
                     this.points = 0;
                     this.gamesPlayed = 0;
+                    this.goalsScored = 0;
+                    this.goalsConceded = 0;
                 }
             }
 
@@ -59,7 +62,7 @@
                 // Add more teams here
             ];
 
-            // Simulate match results and update points
+            // Simulate match results and update points, goals scored, and goals conceded
             function simulateMatchResults() {
                 // Example match results:
                 const matchResults = [
@@ -87,6 +90,12 @@
 
                     homeTeam.gamesPlayed++;
                     awayTeam.gamesPlayed++;
+
+                    homeTeam.goalsScored += homeGoals;
+                    homeTeam.goalsConceded += awayGoals;
+
+                    awayTeam.goalsScored += awayGoals;
+                    awayTeam.goalsConceded += homeGoals;
                 });
             }
 
@@ -106,11 +115,13 @@
                 const rankCell = row.insertCell(0);
                 const teamCell = row.insertCell(1);
                 const gamesPlayedCell = row.insertCell(2);
-                const pointsCell = row.insertCell(3);
+                const goalsCell = row.insertCell(3);
+                const pointsCell = row.insertCell(4);
 
                 rankCell.textContent = index + 1;
                 teamCell.textContent = team.name;
                 gamesPlayedCell.textContent = team.gamesPlayed;
+                goalsCell.textContent = `${team.goalsScored}-${team.goalsConceded}`;
                 pointsCell.textContent = team.points;
             });
         </script>
