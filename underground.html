@@ -127,108 +127,21 @@
             });
         </script>
     </table>
-    <div class="fixtures">
-        <h2>Upcoming Fixtures</h2>
-        <ul id="fixturesList"></ul>
-    </div>
-
-    <script>
-        class Team {
-            constructor(name) {
-                this.name = name;
-                this.points = 0;
-                this.gamesPlayed = 0;
-                this.goalsScored = 0;
-                this.goalsConceded = 0;
-            }
-        }
-
-        const teams = [
-            new Team("Birkani"),
-            new Team("Amani FC"),
-            new Team("Meti Allstars"),
-            new Team("Malomani Boys FC"),
-            // Add more teams here
-        ];
-
-        const matchResults = [
-            { homeTeam: "Birkani", awayTeam: "Amani FC", homeGoals: getRandomScore(), awayGoals: getRandomScore() },
-            { homeTeam: "Amani FC", awayTeam: "Birkani", homeGoals: getRandomScore(), awayGoals: getRandomScore() },
-            { homeTeam: "Meti Allstars", awayTeam: "Malomani Boys FC", homeGoals: getRandomScore(), awayGoals: getRandomScore() },
-            { homeTeam: "Malomani Boys FC", awayTeam: "Meti Allstars", homeGoals: getRandomScore(), awayGoals: getRandomScore() },
-            // Add more match results here
-        ];
-
-        // Simulate match results and update points, goals scored, and goals conceded
-        function simulateMatchResults() {
-            matchResults.forEach(result => {
-                const homeTeam = teams.find(team => team.name === result.homeTeam);
-                const awayTeam = teams.find(team => team.name === result.awayTeam);
-                const homeGoals = result.homeGoals;
-                const awayGoals = result.awayGoals;
-
-                if (homeGoals > awayGoals) {
-                    homeTeam.points += 3;
-                } else if (homeGoals < awayGoals) {
-                    awayTeam.points += 3;
-                } else {
-                    homeTeam.points += 1;
-                    awayTeam.points += 1;
-                }
-
-                homeTeam.gamesPlayed++;
-                awayTeam.gamesPlayed++;
-
-                homeTeam.goalsScored += homeGoals;
-                homeTeam.goalsConceded += awayGoals;
-
-                awayTeam.goalsScored += awayGoals;
-                awayTeam.goalsConceded += homeGoals;
-            });
-        }
-
-        // ... Previous getRandomScore function ...
-
-        // Generate random time reference for upcoming fixtures (e.g., "Tomorrow at 3:00 PM")
-        function getRandomTimeReference() {
-            const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-            const dayIndex = Math.floor(Math.random() * daysOfWeek.length);
-            const hour = Math.floor(Math.random() * 12) + 1;
-            const minute = Math.floor(Math.random() * 60);
-            const ampm = Math.random() < 0.5 ? 'AM' : 'PM';
-            return `${daysOfWeek[dayIndex]} at ${hour}:${minute.toString().padStart(2, '0')} ${ampm}`;
-        }
-
-        simulateMatchResults();
-
-        const sortedTeams = teams.sort((a, b) => b.points - a.points);
-
-        const table = document.querySelector("table");
-
-        sortedTeams.forEach((team, index) => {
-            const row = table.insertRow();
-            const rankCell = row.insertCell(0);
-            const teamCell = row.insertCell(1);
-            const gamesPlayedCell = row.insertCell(2);
-            const goalsCell = row.insertCell(3);
-            const pointsCell = row.insertCell(4);
-
-            rankCell.textContent = index + 1;
-            teamCell.textContent = team.name;
-            gamesPlayedCell.textContent = team.gamesPlayed;
-            goalsCell.textContent = `${team.goalsScored} : ${team.goalsConceded}`;
-            pointsCell.textContent = team.points;
-        });
-
-        const fixturesList = document.getElementById("fixturesList");
-
-        // Generate and display upcoming fixture for each match
-        matchResults.forEach(result => {
-            const fixture = document.createElement("li");
-            const fixtureText = document.createTextNode(`${result.homeTeam} vs ${result.awayTeam} - ${getRandomTimeReference()}`);
-            fixture.appendChild(fixtureText);
-            fixturesList.appendChild(fixture);
-        });
-    </script>
+    <h1>UPCOMING Fixture</h1>
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Match</th>
+        </tr>
+        <tr>
+            <td>August 25</td>
+            <td><span class="team">Birkani</span> <span class="vs">vs</span> <span class="team">Amani FC</span></td>
+        </tr>
+        <tr>
+            <td>August 28</td>
+            <td><span class="team">Meti Allstars</span> <span class="vs">vs</span> <span class="team">Malomani Boys FC</span></td>
+        </tr>
+        <!-- Add more rows as needed -->
+    </table>
 </body>
 </html>
